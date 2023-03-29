@@ -1,6 +1,6 @@
 package com.example.scfapi.model.entity;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
