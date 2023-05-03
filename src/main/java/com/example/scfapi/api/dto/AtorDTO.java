@@ -18,5 +18,9 @@ public class AtorDTO {
     private String dataNascimento;
     private String personagem;
 
+    public static AtorDTO create(Ator ator) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(ator, AtorDTO.class);
+    }
 
 }
