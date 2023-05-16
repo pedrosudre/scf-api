@@ -14,5 +14,8 @@ import java.util.Collection;
 @AllArgsConstructor
 
 public class Diretor extends Pessoa {
-    private String filme;
+
+    private String qtdeOscar;
+
+    private String qtdeFilmes;
 }

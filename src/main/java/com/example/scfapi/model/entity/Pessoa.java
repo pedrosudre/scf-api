@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -24,6 +25,6 @@ public abstract class Pessoa {
 
     private String nome;
     private String nacionalidade;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
 }

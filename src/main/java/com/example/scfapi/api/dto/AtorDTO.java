@@ -6,21 +6,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class AtorDTO {
     private Long id;
+    private String qtdeOscar;
     private String nome;
-    private String filme;
     private String nacionalidade;
-    private String dataNascimento;
-    private String personagem;
+    private LocalDate dataNascimento;
 
     public static AtorDTO create(Ator ator) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(ator, AtorDTO.class);
+        AtorDTO dto = modelMapper.map(ator, AtorDTO.class);
+        return dto;
     }
 
 }

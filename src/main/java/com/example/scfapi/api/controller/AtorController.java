@@ -3,6 +3,7 @@ package com.example.scfapi.api.controller;
 import com.example.scfapi.api.dto.AtorDTO;
 import com.example.scfapi.exception.RegraNegocioException;
 import com.example.scfapi.model.entity.Ator;
+import com.example.scfapi.model.repository.AtorRepository;
 import com.example.scfapi.service.AtorService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +22,8 @@ public class AtorController {
 
     private final AtorService service;
 
+    private AtorRepository atorRepository;
+
     @GetMapping()
     public ResponseEntity get() {
         List<Ator> atores = service.getAtores();
@@ -36,12 +39,52 @@ public class AtorController {
         return ResponseEntity.ok(ator.map(AtorDTO::create));
     }
 
-    @PostMapping()
-    public ResponseEntity post(AtorDTO dto) {
+//   @PostMapping("")
+//    public ResponseEntity post(AtorDTO dto) {
+//        try {
+//            Ator ator = converter(dto);
+//            ator = service.salvar(ator);
+//            return new ResponseEntity(ator, HttpStatus.CREATED);
+//        } catch (RegraNegocioException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
+
+   @PostMapping("")
+    public ResponseEntity Post(@RequestBody final AtorDTO atorDTO) {
+       try {
+           Ator ator = converter(atorDTO); // Aplicando tratando do DTO
+           ator = service.salvar(ator);
+           return new ResponseEntity(ator, HttpStatus.CREATED);
+       } catch (RegraNegocioException e) {
+           return ResponseEntity.badRequest().body(e.getMessage());
+       }
+   }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") final Long id, @RequestBody AtorDTO dto) {
+        if (!service.getAtorById(id).isPresent()) {
+            return new ResponseEntity("Ator não encontrado", HttpStatus.NOT_FOUND);
+        }
         try {
             Ator ator = converter(dto);
-            ator = service.salvar(ator);
-            return new ResponseEntity(ator, HttpStatus.CREATED);
+            ator.setId(id);
+            service.salvar(ator);
+            return ResponseEntity.ok(ator);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Ator> ator = service.getAtorById(id);
+        if (!ator.isPresent()) {
+            return new ResponseEntity("Ator não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(ator.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -49,9 +92,7 @@ public class AtorController {
 
     public Ator converter(AtorDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
-        Ator ator = modelMapper.map(dto, Ator.class);
-
-        return ator;
+        return modelMapper.map(dto, Ator.class);
     }
 
 }

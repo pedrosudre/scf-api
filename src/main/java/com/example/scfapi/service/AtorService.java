@@ -13,35 +13,34 @@ import java.util.Optional;
 @Service
 public class AtorService {
 
-    private AtorRepository repository;
+    private AtorRepository atorRepository;
 
     public AtorService(AtorRepository repository) {
-        this.repository = repository;
+        this.atorRepository = repository;
     }
 
     public List<Ator> getAtores() {
-        return repository.findAll();
+        return atorRepository.findAll();
     }
 
     public Optional<Ator> getAtorById(Long id) {
-        return repository.findById(id);
+        return atorRepository.findById(id);
     }
 
     @Transactional
     public Ator salvar(Ator ator) {
-        validar(ator);
-        return repository.save(ator);
+        return this.atorRepository.save(ator);
     }
 
     @Transactional
     public void excluir(Ator ator) {
         Objects.requireNonNull(ator.getId());
-        repository.delete(ator);
+        atorRepository.delete(ator);
     }
 
-    public void validar(Ator ator) {
-        if (ator.getFilme() == null || ator.getFilme().trim().equals("")) {
-            throw new RegraNegocioException("Filme inválido.");
+   /* public void validar(Ator ator) {
+        if (ator.getNome() == null || ator.getNome().trim().equals("")) {
+            throw new RegraNegocioException("Nome inválido");
         }
-    }
+    }*/
 }

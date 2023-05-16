@@ -43,8 +43,8 @@ public class DiretorService {
     }
 
     public void validar(Diretor diretor) {
-        if (diretor.getFilme() == null || diretor.getFilme().trim().equals("")) {
-            throw new RegraNegocioException("Filme inválido.");
+        if (diretor.getNome() == null || diretor.getNome().trim().equals("")) {
+            throw new RegraNegocioException("Diretor inválido.");
         }
     }
 }

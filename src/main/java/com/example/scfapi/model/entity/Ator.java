@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 
 public class Ator extends Pessoa{
-    private String personagem;
-    private String filme;
+
+    private String qtdeOscar;
+
 }
