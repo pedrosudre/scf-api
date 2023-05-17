@@ -3,7 +3,6 @@ package com.example.scfapi.api.controller;
 import com.example.scfapi.api.dto.AtorDTO;
 import com.example.scfapi.exception.RegraNegocioException;
 import com.example.scfapi.model.entity.Ator;
-import com.example.scfapi.model.repository.AtorRepository;
 import com.example.scfapi.service.AtorService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,7 +21,6 @@ public class AtorController {
 
     private final AtorService service;
 
-    private AtorRepository atorRepository;
 
     @GetMapping()
     public ResponseEntity get() {

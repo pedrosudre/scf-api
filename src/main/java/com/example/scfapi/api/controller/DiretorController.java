@@ -1,7 +1,9 @@
 package com.example.scfapi.api.controller;
 
+import com.example.scfapi.api.dto.AtorDTO;
 import com.example.scfapi.api.dto.DiretorDTO;
 import com.example.scfapi.exception.RegraNegocioException;
+import com.example.scfapi.model.entity.Ator;
 import com.example.scfapi.model.entity.Diretor;
 import com.example.scfapi.service.DiretorService;
 import lombok.RequiredArgsConstructor;
@@ -36,12 +38,52 @@ public class DiretorController {
         return ResponseEntity.ok(diretor.map(DiretorDTO::create));
     }
 
-    @PostMapping()
-    public ResponseEntity post(DiretorDTO dto) {
+//    @PostMapping()
+//    public ResponseEntity post(DiretorDTO dto) {
+//        try {
+//            Diretor diretor = converter(dto);
+//            diretor = service.salvar(diretor);
+//            return new ResponseEntity(diretor, HttpStatus.CREATED);
+//        } catch (RegraNegocioException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
+
+    @PostMapping("")
+    public ResponseEntity Post(@RequestBody final DiretorDTO diretorDTO) {
         try {
-            Diretor diretor = converter(dto);
+            Diretor diretor = converter(diretorDTO); // Aplicando tratando do DTO
             diretor = service.salvar(diretor);
             return new ResponseEntity(diretor, HttpStatus.CREATED);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") final Long id, @RequestBody DiretorDTO diretorDTO) {
+        if (!service.getDiretorById(id).isPresent()) {
+            return new ResponseEntity("Diretor não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Diretor diretor = converter(diretorDTO);
+            diretor.setId(id);
+            service.salvar(diretor);
+            return ResponseEntity.ok(diretor);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Diretor> diretor = service.getDiretorById(id);
+        if (!diretor.isPresent()) {
+            return new ResponseEntity("Diretor não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(diretor.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

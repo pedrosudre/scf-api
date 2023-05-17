@@ -1,9 +1,7 @@
 package com.example.scfapi.api.controller;
 
-import com.example.scfapi.api.dto.FilmeDTO;
 import com.example.scfapi.api.dto.GeneroDTO;
 import com.example.scfapi.exception.RegraNegocioException;
-import com.example.scfapi.model.entity.Filme;
 import com.example.scfapi.model.entity.Genero;
 import com.example.scfapi.service.GeneroService;
 import lombok.RequiredArgsConstructor;
@@ -39,16 +37,58 @@ public class GeneroController {
         return ResponseEntity.ok(genero.map(GeneroDTO::create));
     }
 
-    @PostMapping()
-    public ResponseEntity post(GeneroDTO dto) {
+//    @PostMapping()
+//    public ResponseEntity post(GeneroDTO dto) {
+//        try {
+//            Genero genero = converter(dto);
+//            genero = service.salvar(genero);
+//            return new ResponseEntity(genero, HttpStatus.CREATED);
+//        } catch (RegraNegocioException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
+
+    @PostMapping("")
+    public ResponseEntity Post(@RequestBody final GeneroDTO generoDTO) {
         try {
-            Genero genero = converter(dto);
+            Genero genero = converter(generoDTO); // Aplicando tratando do DTO
             genero = service.salvar(genero);
             return new ResponseEntity(genero, HttpStatus.CREATED);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") final Long id, @RequestBody GeneroDTO dto) {
+        if (!service.getGeneroById(id).isPresent()) {
+            return new ResponseEntity("Genero não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Genero genero = converter(dto);
+            genero.setId(id);
+            service.salvar(genero);
+            return ResponseEntity.ok(genero);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Genero> genero = service.getGeneroById(id);
+        if (!genero.isPresent()) {
+            return new ResponseEntity("Genero não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(genero.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
     public Genero converter(GeneroDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Genero genero = modelMapper.map(dto, Genero.class);

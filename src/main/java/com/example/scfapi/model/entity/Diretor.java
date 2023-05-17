@@ -15,7 +15,5 @@ import java.util.Collection;
 
 public class Diretor extends Pessoa {
 
-    private String qtdeOscar;
-
-    private String qtdeFilmes;
+    private String qtdeFilme;
 }

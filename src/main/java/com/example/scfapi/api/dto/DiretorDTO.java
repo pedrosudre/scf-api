@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,10 +15,9 @@ import org.modelmapper.ModelMapper;
 public class DiretorDTO {
     private Long id;
     private String nome;
-    private String filme;
     private String nacionalidade;
-    private String dataNascimento;
-    private String qtdePremios;
+    private LocalDate dataNascimento;
+    private String qtdeFilme;
 
     public static DiretorDTO create(Diretor diretor) {
         ModelMapper modelMapper = new ModelMapper();
