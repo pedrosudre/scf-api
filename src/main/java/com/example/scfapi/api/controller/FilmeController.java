@@ -2,15 +2,20 @@ package com.example.scfapi.api.controller;
 
 import com.example.scfapi.api.dto.DiretorDTO;
 import com.example.scfapi.api.dto.FilmeDTO;
+import com.example.scfapi.api.dto.GeneroDTO;
 import com.example.scfapi.exception.RegraNegocioException;
+import com.example.scfapi.model.entity.Ator;
 import com.example.scfapi.model.entity.Diretor;
 import com.example.scfapi.model.entity.Filme;
+import com.example.scfapi.model.entity.Genero;
+import com.example.scfapi.model.repository.DiretorRepository;
 import com.example.scfapi.service.AtorService;
 import com.example.scfapi.service.DiretorService;
 import com.example.scfapi.service.FilmeService;
 import com.example.scfapi.service.GeneroService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +29,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/filmes")
 @RequiredArgsConstructor
 public class FilmeController {
+
+    @Autowired
+    private DiretorRepository diretorRepository;
 
     private final FilmeService service;
     private final AtorService atorService;
@@ -45,16 +53,18 @@ public class FilmeController {
         return ResponseEntity.ok(filme.map(FilmeDTO::create));
     }
 
-    @PostMapping()
-    public ResponseEntity post(FilmeDTO dto) {
+
+    @PostMapping("")
+    public ResponseEntity Post(@RequestBody final FilmeDTO filmeDTO) {
         try {
-            Filme filme = converter(dto);
+            Filme filme = converter(filmeDTO); // Aplicando tratando do DTO
             filme = service.salvar(filme);
             return new ResponseEntity(filme, HttpStatus.CREATED);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
     public Filme converter(FilmeDTO dto) {
         ModelMapper modelMapper = new ModelMapper();

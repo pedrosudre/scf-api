@@ -37,16 +37,6 @@ public class GeneroController {
         return ResponseEntity.ok(genero.map(GeneroDTO::create));
     }
 
-//    @PostMapping()
-//    public ResponseEntity post(GeneroDTO dto) {
-//        try {
-//            Genero genero = converter(dto);
-//            genero = service.salvar(genero);
-//            return new ResponseEntity(genero, HttpStatus.CREATED);
-//        } catch (RegraNegocioException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
 
     @PostMapping("")
     public ResponseEntity Post(@RequestBody final GeneroDTO generoDTO) {

@@ -1,5 +1,6 @@
 package com.example.scfapi.api.dto;
 
+import com.example.scfapi.model.entity.Ator;
 import com.example.scfapi.model.entity.Filme;
 import com.example.scfapi.model.entity.Genero;
 import lombok.AllArgsConstructor;
@@ -14,11 +15,12 @@ import org.modelmapper.ModelMapper;
 public class FilmeDTO {
     private Long id;
     private String nome;
-    private Integer relevancia;
-    private Genero genero;
+    private int nota;
+    private Long idGenero;
 
-    public static FilmeDTO create(Filme filme) {
+    public static AtorDTO create(Filme filme) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(filme, FilmeDTO.class);
+        AtorDTO dto = modelMapper.map(filme, AtorDTO.class);
+        return dto;
     }
 }

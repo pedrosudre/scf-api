@@ -38,9 +38,9 @@ public class AtorService {
         atorRepository.delete(ator);
     }
 
-   /* public void validar(Ator ator) {
+    public void validar(Ator ator) {
         if (ator.getNome() == null || ator.getNome().trim().equals("")) {
             throw new RegraNegocioException("Nome inválido");
         }
-    }*/
+    }
 }

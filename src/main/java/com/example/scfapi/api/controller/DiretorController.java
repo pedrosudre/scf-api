@@ -38,16 +38,6 @@ public class DiretorController {
         return ResponseEntity.ok(diretor.map(DiretorDTO::create));
     }
 
-//    @PostMapping()
-//    public ResponseEntity post(DiretorDTO dto) {
-//        try {
-//            Diretor diretor = converter(dto);
-//            diretor = service.salvar(diretor);
-//            return new ResponseEntity(diretor, HttpStatus.CREATED);
-//        } catch (RegraNegocioException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
 
     @PostMapping("")
     public ResponseEntity Post(@RequestBody final DiretorDTO diretorDTO) {

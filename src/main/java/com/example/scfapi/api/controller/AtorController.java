@@ -37,16 +37,6 @@ public class AtorController {
         return ResponseEntity.ok(ator.map(AtorDTO::create));
     }
 
-//   @PostMapping("")
-//    public ResponseEntity post(AtorDTO dto) {
-//        try {
-//            Ator ator = converter(dto);
-//            ator = service.salvar(ator);
-//            return new ResponseEntity(ator, HttpStatus.CREATED);
-//        } catch (RegraNegocioException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
 
    @PostMapping("")
     public ResponseEntity Post(@RequestBody final AtorDTO atorDTO) {

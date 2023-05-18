@@ -43,7 +43,7 @@ public class FilmeService {
 
     public void validar(Filme filme) {
         if (filme.getNome() == null || filme.getNome().trim().equals("")) {
-            throw new RegraNegocioException("Nome inválido");
+            throw new RegraNegocioException("Nome do filme inválido");
         }
     }
 }
