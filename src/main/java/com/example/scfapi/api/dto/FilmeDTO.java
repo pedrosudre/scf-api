@@ -17,6 +17,8 @@ public class FilmeDTO {
     private String nome;
     private int nota;
     private Long idGenero;
+    private Long idDiretor;
+    private Long idAtor;
 
     public static AtorDTO create(Filme filme) {
         ModelMapper modelMapper = new ModelMapper();

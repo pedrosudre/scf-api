@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/atores")
+@CrossOrigin(origins = "http://localhost:8080")
 @RequiredArgsConstructor
 public class AtorController {
 
@@ -39,7 +40,7 @@ public class AtorController {
 
 
    @PostMapping("")
-    public ResponseEntity Post(@RequestBody final AtorDTO atorDTO) {
+    public ResponseEntity Post(@RequestBody AtorDTO atorDTO) {
        try {
            Ator ator = converter(atorDTO); // Aplicando tratando do DTO
            ator = service.salvar(ator);

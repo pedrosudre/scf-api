@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/diretores")
+@CrossOrigin(origins = "http://localhost:8080")
 @RequiredArgsConstructor
 public class DiretorController {
 
@@ -40,7 +41,7 @@ public class DiretorController {
 
 
     @PostMapping("")
-    public ResponseEntity Post(@RequestBody final DiretorDTO diretorDTO) {
+    public ResponseEntity Post(@RequestBody DiretorDTO diretorDTO) {
         try {
             Diretor diretor = converter(diretorDTO); // Aplicando tratando do DTO
             diretor = service.salvar(diretor);

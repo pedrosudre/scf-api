@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/filmes")
+@CrossOrigin(origins = "http://localhost:8080")
 @RequiredArgsConstructor
 public class FilmeController {
 
@@ -55,7 +56,7 @@ public class FilmeController {
 
 
     @PostMapping("")
-    public ResponseEntity Post(@RequestBody final FilmeDTO filmeDTO) {
+    public ResponseEntity Post(@RequestBody FilmeDTO filmeDTO) {
         try {
             Filme filme = converter(filmeDTO); // Aplicando tratando do DTO
             filme = service.salvar(filme);
@@ -69,7 +70,6 @@ public class FilmeController {
     public Filme converter(FilmeDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Filme filme = modelMapper.map(dto, Filme.class);
-
         return filme;
     }
 }
