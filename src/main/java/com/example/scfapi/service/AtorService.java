@@ -29,6 +29,7 @@ public class AtorService {
 
     @Transactional
     public Ator salvar(Ator ator) {
+        validar(ator);
         return this.atorRepository.save(ator);
     }
 
