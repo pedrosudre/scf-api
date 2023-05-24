@@ -20,9 +20,9 @@ public class FilmeDTO {
     private Long idDiretor;
     private Long idAtor;
 
-    public static AtorDTO create(Filme filme) {
+    public static FilmeDTO create(Filme filme) {
         ModelMapper modelMapper = new ModelMapper();
-        AtorDTO dto = modelMapper.map(filme, AtorDTO.class);
+        FilmeDTO dto = modelMapper.map(filme, FilmeDTO.class);
         return dto;
     }
 }
