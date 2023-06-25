@@ -17,12 +17,18 @@ public class FilmeDTO {
     private String nome;
     private int nota;
     private Long idGenero;
+    private String nomeGenero;
     private Long idDiretor;
+    private String nomeDiretor;
     private Long idAtor;
+    private String nomeAtor;
 
     public static FilmeDTO create(Filme filme) {
         ModelMapper modelMapper = new ModelMapper();
         FilmeDTO dto = modelMapper.map(filme, FilmeDTO.class);
+        dto.nomeAtor = filme.getAtor().getNome();
+        dto.nomeDiretor = filme.getDiretor().getNome();
+        dto.nomeGenero = filme.getGenero().getNome();
         return dto;
     }
 }

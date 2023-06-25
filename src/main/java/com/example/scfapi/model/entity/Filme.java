@@ -13,6 +13,7 @@ import java.util.Collection;
 @AllArgsConstructor
 
 public class Filme {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
