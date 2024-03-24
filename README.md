@@ -1,6 +1,6 @@
 # Sistema de Controle de Filmes API
 
-Bem-vindo ao Sistema de Controle de Filmes API! Esta API foi desenvolvida em Java Spring Boot e utiliza PostgreSQL como banco de dados para fornecer operações CRUD (Create, Read, Update, Delete) para gerenciar filmes.
+Esta API foi desenvolvida em Java Spring Boot e utiliza PostgreSQL como banco de dados para fornecer operações CRUD (Create, Read, Update, Delete) para gerenciar filmes.
 
 ## Recursos
 
